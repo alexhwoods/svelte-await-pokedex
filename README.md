@@ -2,9 +2,12 @@
 
 A retro-styled Pokémon encyclopedia that demonstrates Svelte 5's new experimental **await expressions** functionality. Built with SvelteKit, TypeScript, and Tailwind CSS, featuring a nostalgic 90's Game Boy aesthetic.
 
+🚀 **[Live Demo: https://svelte-await-pokedex.vercel.app/](https://svelte-await-pokedex.vercel.app/)**
+
 ![Svelte 5](https://img.shields.io/badge/Svelte-5.38-ff3e00?style=for-the-badge&logo=svelte)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
 ## 🚀 Quick Start
 
