@@ -86,10 +86,12 @@
 
 <svelte:boundary>
 	{#snippet pending()}
-		<div class="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+		<div
+			class="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800"
+		>
 			<div class="text-center">
 				<div class="pokeball-loader mx-auto"></div>
-				<p class="mt-6 pixel-text text-2xl text-yellow-400">Loading Pokémon data...</p>
+				<p class="pixel-text mt-6 text-2xl text-yellow-400">Loading Pokémon data...</p>
 			</div>
 		</div>
 	{/snippet}
@@ -122,10 +124,18 @@
 							<div class="mt-4 rounded-lg bg-gray-800/50 p-4">
 								<p class="pixel-text text-green-400">QUICK ACCESS:</p>
 								<div class="mt-2 flex flex-wrap gap-2">
-									<button onclick={() => (pokemonId = 25)} class="retro-button text-xs">PIKACHU</button>
-									<button onclick={() => (pokemonId = 1)} class="retro-button text-xs">BULBASAUR</button>
-									<button onclick={() => (pokemonId = 150)} class="retro-button text-xs">MEWTWO</button>
-									<button onclick={() => (pokemonId = 6)} class="retro-button text-xs">CHARIZARD</button>
+									<button onclick={() => (pokemonId = 25)} class="retro-button text-xs"
+										>PIKACHU</button
+									>
+									<button onclick={() => (pokemonId = 1)} class="retro-button text-xs"
+										>BULBASAUR</button
+									>
+									<button onclick={() => (pokemonId = 150)} class="retro-button text-xs"
+										>MEWTWO</button
+									>
+									<button onclick={() => (pokemonId = 6)} class="retro-button text-xs"
+										>CHARIZARD</button
+									>
 								</div>
 							</div>
 						</div>
@@ -146,8 +156,10 @@
 					<div class="pokemon-card p-6">
 						<!-- Pokémon Name Header -->
 						<div class="mb-6 text-center">
-							<h2 class="retro-title text-2xl uppercase text-red-600">{pokemon.name}</h2>
-							<p class="pixel-text text-lg text-gray-600">No. {pokemon.id.toString().padStart(3, '0')}</p>
+							<h2 class="retro-title text-2xl text-red-600 uppercase">{pokemon.name}</h2>
+							<p class="pixel-text text-lg text-gray-600">
+								No. {pokemon.id.toString().padStart(3, '0')}
+							</p>
 						</div>
 
 						<div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
@@ -169,7 +181,7 @@
 								<!-- Basic Stats -->
 								<div class="rounded-lg bg-gray-800/20 p-4">
 									<h3 class="retro-subtitle mb-4 text-lg">BASIC DATA</h3>
-									<div class="space-y-2 pixel-text text-lg">
+									<div class="pixel-text space-y-2 text-lg">
 										<div class="flex justify-between">
 											<span class="text-yellow-600">HEIGHT:</span>
 											<span class="text-white">{pokemon.height / 10}m</span>
@@ -252,8 +264,10 @@
 								<div class="space-y-4">
 									{#each pokemon.stats as stat (stat.stat.name)}
 										<div class="space-y-2">
-											<div class="flex justify-between pixel-text text-lg">
-												<span class="uppercase text-yellow-400">{stat.stat.name.replace('-', ' ')}</span>
+											<div class="pixel-text flex justify-between text-lg">
+												<span class="text-yellow-400 uppercase"
+													>{stat.stat.name.replace('-', ' ')}</span
+												>
 												<span class="text-white">{stat.base_stat}</span>
 											</div>
 											<div class="retro-stat-bar">
@@ -264,7 +278,7 @@
 											</div>
 										</div>
 									{/each}
-									
+
 									<div class="mt-8 grid grid-cols-2 gap-4 rounded-lg bg-gray-800/30 p-4">
 										<div class="text-center">
 											<p class="pixel-text text-2xl text-green-400">{statsInfo.total}</p>
@@ -315,7 +329,7 @@
 										{#each chain as pokemon, i (pokemon)}
 											<div class="text-center">
 												<div class="pokemon-card mb-4 p-4">
-													<p class="pixel-text text-xl uppercase text-gray-800">{pokemon}</p>
+													<p class="pixel-text text-xl text-gray-800 uppercase">{pokemon}</p>
 												</div>
 											</div>
 											{#if i < chain.length - 1}
@@ -323,7 +337,7 @@
 											{/if}
 										{/each}
 									</div>
-									
+
 									{#if chain.length === 1}
 										<div class="mt-6 text-center">
 											<p class="pixel-text text-lg text-yellow-400">NO EVOLUTION DATA AVAILABLE</p>
