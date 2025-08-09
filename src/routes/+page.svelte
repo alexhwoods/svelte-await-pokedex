@@ -86,165 +86,263 @@
 
 <svelte:boundary>
 	{#snippet pending()}
-		<div class="flex min-h-screen items-center justify-center">
+		<div class="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
 			<div class="text-center">
-				<div class="mx-auto h-12 w-12 animate-spin rounded-full border-b-2 border-yellow-500"></div>
-				<p class="mt-4 text-gray-600">Loading Pokémon data...</p>
+				<div class="pokeball-loader mx-auto"></div>
+				<p class="mt-6 pixel-text text-2xl text-yellow-400">Loading Pokémon data...</p>
 			</div>
 		</div>
 	{/snippet}
 
-	<div class="container mx-auto p-8">
-		<h1 class="mb-6 text-3xl font-bold">Pokémon API with Svelte Await Expressions</h1>
+	<div class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 p-4 sm:p-8">
+		<div class="mx-auto max-w-4xl">
+			<!-- Main Pokédex Container -->
+			<div class="pokedex-container mb-8">
+				<!-- Pokédex Header -->
+				<div class="mb-6 text-center">
+					<h1 class="retro-title mb-4">POKÉDEX v2.0</h1>
+					<p class="retro-subtitle text-lg text-gray-300">Digital Pokémon Encyclopedia</p>
+				</div>
 
-		<!-- Pokémon selector -->
-		<div class="mb-6 rounded-lg bg-white p-6 shadow-md">
-			<h2 class="mb-4 text-xl font-semibold">Choose a Pokémon</h2>
-			<div class="mb-4">
-				<label class="mb-2 block">
-					<span class="text-gray-700">Pokémon ID:</span>
-					<input
-						type="number"
-						bind:value={pokemonId}
-						min="1"
-						max="1025"
-						class="mt-1 block w-32 rounded-md border-gray-300 shadow-sm"
-					/>
-				</label>
-				<p class="text-sm text-gray-500">Try: 25 (Pikachu), 1 (Bulbasaur), 150 (Mewtwo)</p>
-			</div>
-		</div>
-
-		<!-- Main Pokémon data -->
-		{#await fetchPokemon(pokemonId)}
-			<div class="rounded-lg bg-white p-6 shadow-md">
-				<p class="text-gray-500">Loading Pokémon...</p>
-			</div>
-		{:then pokemon}
-			<div class="mb-6 rounded-lg bg-white p-6 shadow-md">
-				<h2 class="mb-4 text-xl font-semibold capitalize">{pokemon.name}</h2>
-				<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-					<div>
-						<img
-							src={pokemon.sprites.other['official-artwork'].front_default}
-							alt={pokemon.name}
-							class="mx-auto h-48 w-48"
-						/>
-					</div>
-					<div>
-						<p><strong>Height:</strong> {pokemon.height / 10}m</p>
-						<p><strong>Weight:</strong> {pokemon.weight / 10}kg</p>
-						<p><strong>Base Experience:</strong> {pokemon.base_experience}</p>
-						<div class="mt-2">
-							<strong>Types:</strong>
-							<div class="mt-1 flex gap-2">
-								{#each pokemon.types as type (type.slot)}
-									<span
-										class="rounded-full px-3 py-1 text-sm text-white"
-										style="background-color: {getTypeColor(type.type.name)}"
-									>
-										{type.type.name}
-									</span>
-								{/each}
+				<!-- Pokémon Selector Screen -->
+				<div class="pokedex-screen mb-8">
+					<h2 class="retro-subtitle mb-6 text-center text-xl">SELECT POKÉMON</h2>
+					<div class="crt-monitor">
+						<div class="mb-6">
+							<label class="mb-4 block">
+								<span class="pixel-text text-lg text-yellow-400">POKÉMON ID:</span>
+								<input
+									type="number"
+									bind:value={pokemonId}
+									min="1"
+									max="1025"
+									class="retro-input mt-2 block w-full max-w-xs text-center text-xl"
+								/>
+							</label>
+							<div class="mt-4 rounded-lg bg-gray-800/50 p-4">
+								<p class="pixel-text text-green-400">QUICK ACCESS:</p>
+								<div class="mt-2 flex flex-wrap gap-2">
+									<button onclick={() => (pokemonId = 25)} class="retro-button text-xs">PIKACHU</button>
+									<button onclick={() => (pokemonId = 1)} class="retro-button text-xs">BULBASAUR</button>
+									<button onclick={() => (pokemonId = 150)} class="retro-button text-xs">MEWTWO</button>
+									<button onclick={() => (pokemonId = 6)} class="retro-button text-xs">CHARIZARD</button>
+								</div>
 							</div>
-						</div>
-						<div class="mt-2">
-							<strong>Abilities:</strong>
-							<ul class="mt-1 list-inside list-disc">
-								{#each pokemon.abilities as ability (ability.slot)}
-									<li class="capitalize">
-										{ability.ability.name.replace('-', ' ')}
-										{#if ability.is_hidden}
-											<span class="text-sm text-gray-500">(Hidden)</span>
-										{/if}
-									</li>
-								{/each}
-							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-		{:catch error}
-			<div class="rounded-lg bg-red-50 p-6 shadow-md">
-				<p class="text-red-500">Error: {error.message}</p>
-			</div>
-		{/await}
 
-		<!-- Stats section -->
-		<button
-			class="mb-4 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-			onclick={() => (showStats = !showStats)}
-		>
-			{showStats ? 'Hide' : 'Show'} Stats Analysis
-		</button>
+			<!-- Main Pokémon Data Display -->
+			<div class="pokedex-container mb-8">
+				{#await fetchPokemon(pokemonId)}
+					<div class="pokedex-screen">
+						<div class="crt-monitor text-center">
+							<div class="pokeball-loader mx-auto mb-4"></div>
+							<p class="pixel-text text-2xl text-green-400">LOADING POKÉMON DATA...</p>
+						</div>
+					</div>
+				{:then pokemon}
+					<div class="pokemon-card p-6">
+						<!-- Pokémon Name Header -->
+						<div class="mb-6 text-center">
+							<h2 class="retro-title text-2xl uppercase text-red-600">{pokemon.name}</h2>
+							<p class="pixel-text text-lg text-gray-600">No. {pokemon.id.toString().padStart(3, '0')}</p>
+						</div>
 
-		{#if showStats}
-			<div class="mb-6 rounded-lg bg-white p-6 shadow-md">
-				<h2 class="mb-4 text-xl font-semibold">Stats Analysis</h2>
-				{#await Promise.all([fetchPokemon(pokemonId), calculateStats(pokemonId)])}
-					<p class="text-gray-500">Calculating stats...</p>
-				{:then [pokemon, statsInfo]}
-					<div class="grid gap-4">
-						{#each pokemon.stats as stat (stat.stat.name)}
-							<div>
-								<div class="flex justify-between">
-									<span class="capitalize">{stat.stat.name.replace('-', ' ')}</span>
-									<span>{stat.base_stat}</span>
-								</div>
-								<div class="mt-1 h-4 w-full rounded-full bg-gray-200">
-									<div
-										class="h-4 rounded-full bg-green-500"
-										style="width: {(stat.base_stat / 255) * 100}%"
-									></div>
+						<div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+							<!-- Left Side - Image -->
+							<div class="relative">
+								<div class="pokedex-screen p-4">
+									<div class="crt-monitor text-center">
+										<img
+											src={pokemon.sprites.other['official-artwork'].front_default}
+											alt={pokemon.name}
+											class="mx-auto h-64 w-64 object-contain drop-shadow-2xl"
+										/>
+									</div>
 								</div>
 							</div>
-						{/each}
-						<div class="mt-4 border-t pt-4">
-							<p><strong>Total:</strong> {statsInfo.total}</p>
-							<p><strong>Average:</strong> {statsInfo.average}</p>
+
+							<!-- Right Side - Info -->
+							<div class="space-y-6">
+								<!-- Basic Stats -->
+								<div class="rounded-lg bg-gray-800/20 p-4">
+									<h3 class="retro-subtitle mb-4 text-lg">BASIC DATA</h3>
+									<div class="space-y-2 pixel-text text-lg">
+										<div class="flex justify-between">
+											<span class="text-yellow-600">HEIGHT:</span>
+											<span class="text-white">{pokemon.height / 10}m</span>
+										</div>
+										<div class="flex justify-between">
+											<span class="text-yellow-600">WEIGHT:</span>
+											<span class="text-white">{pokemon.weight / 10}kg</span>
+										</div>
+										<div class="flex justify-between">
+											<span class="text-yellow-600">EXP:</span>
+											<span class="text-white">{pokemon.base_experience}</span>
+										</div>
+									</div>
+								</div>
+
+								<!-- Types -->
+								<div class="rounded-lg bg-gray-800/20 p-4">
+									<h3 class="retro-subtitle mb-4 text-lg">TYPE</h3>
+									<div class="flex gap-3">
+										{#each pokemon.types as type (type.slot)}
+											<span
+												class="type-badge text-white"
+												style="background-color: {getTypeColor(type.type.name)}"
+											>
+												{type.type.name}
+											</span>
+										{/each}
+									</div>
+								</div>
+
+								<!-- Abilities -->
+								<div class="rounded-lg bg-gray-800/20 p-4">
+									<h3 class="retro-subtitle mb-4 text-lg">ABILITIES</h3>
+									<ul class="space-y-2">
+										{#each pokemon.abilities as ability (ability.slot)}
+											<li class="pixel-text text-lg text-white">
+												<span class="text-green-400">▶</span>
+												{ability.ability.name.replace('-', ' ').toUpperCase()}
+												{#if ability.is_hidden}
+													<span class="text-yellow-400">(HIDDEN)</span>
+												{/if}
+											</li>
+										{/each}
+									</ul>
+								</div>
+							</div>
 						</div>
 					</div>
 				{:catch error}
-					<p class="text-red-500">Error loading stats: {error.message}</p>
-				{/await}
-			</div>
-		{/if}
-
-		<!-- Evolution chain -->
-		<button
-			class="mb-4 rounded bg-purple-500 px-4 py-2 font-bold text-white hover:bg-purple-700"
-			onclick={() => (showEvolution = !showEvolution)}
-		>
-			{showEvolution ? 'Hide' : 'Show'} Evolution Chain
-		</button>
-
-		{#if showEvolution}
-			<div class="rounded-lg bg-white p-6 shadow-md">
-				<h2 class="mb-4 text-xl font-semibold">Evolution Chain</h2>
-				{#await fetchPokemonSpecies(pokemonId)}
-					<p class="text-gray-500">Loading evolution data...</p>
-				{:then species}
-					{#await fetchEvolutionChain(species.evolution_chain.url)}
-						<p class="text-gray-500">Fetching evolution chain...</p>
-					{:then evolutionData}
-						{@const chain = parseEvolutionChain(evolutionData.chain)}
-						<div class="flex items-center gap-4">
-							{#each chain as pokemon, i (pokemon)}
-								<div class="text-center">
-									<p class="capitalize">{pokemon}</p>
-								</div>
-								{#if i < chain.length - 1}
-									<span class="text-2xl">→</span>
-								{/if}
-							{/each}
+					<div class="pokedex-screen">
+						<div class="crt-monitor text-center">
+							<div class="glitch">
+								<p class="pixel-text text-2xl text-red-400">ERROR: {error.message}</p>
+								<p class="pixel-text mt-2 text-yellow-400">SYSTEM MALFUNCTION</p>
+							</div>
 						</div>
-					{:catch error}
-						<p class="text-red-500">Error loading evolution chain: {error.message}</p>
-					{/await}
-				{:catch error}
-					<p class="text-red-500">Error loading species data: {error.message}</p>
+					</div>
 				{/await}
 			</div>
-		{/if}
+
+			<!-- Stats Analysis Section -->
+			<div class="pokedex-container mb-8">
+				<button
+					class="retro-button blue mb-6 block w-full"
+					onclick={() => (showStats = !showStats)}
+				>
+					{showStats ? '◄ HIDE' : '▶ SHOW'} STATS ANALYSIS
+				</button>
+
+				{#if showStats}
+					<div class="pokedex-screen">
+						<h2 class="retro-subtitle mb-6 text-center text-xl">BATTLE STATISTICS</h2>
+						<div class="crt-monitor">
+							{#await Promise.all([fetchPokemon(pokemonId), calculateStats(pokemonId)])}
+								<div class="text-center">
+									<div class="pokeball-loader mx-auto mb-4"></div>
+									<p class="pixel-text text-2xl text-green-400">CALCULATING STATS...</p>
+								</div>
+							{:then [pokemon, statsInfo]}
+								<div class="space-y-4">
+									{#each pokemon.stats as stat (stat.stat.name)}
+										<div class="space-y-2">
+											<div class="flex justify-between pixel-text text-lg">
+												<span class="uppercase text-yellow-400">{stat.stat.name.replace('-', ' ')}</span>
+												<span class="text-white">{stat.base_stat}</span>
+											</div>
+											<div class="retro-stat-bar">
+												<div
+													class="retro-stat-fill"
+													style="width: {Math.min((stat.base_stat / 255) * 100, 100)}%"
+												></div>
+											</div>
+										</div>
+									{/each}
+									
+									<div class="mt-8 grid grid-cols-2 gap-4 rounded-lg bg-gray-800/30 p-4">
+										<div class="text-center">
+											<p class="pixel-text text-2xl text-green-400">{statsInfo.total}</p>
+											<p class="retro-subtitle text-sm">TOTAL</p>
+										</div>
+										<div class="text-center">
+											<p class="pixel-text text-2xl text-blue-400">{statsInfo.average}</p>
+											<p class="retro-subtitle text-sm">AVERAGE</p>
+										</div>
+									</div>
+								</div>
+							{:catch error}
+								<div class="glitch text-center">
+									<p class="pixel-text text-2xl text-red-400">STAT ERROR: {error.message}</p>
+								</div>
+							{/await}
+						</div>
+					</div>
+				{/if}
+			</div>
+
+			<!-- Evolution Chain Section -->
+			<div class="pokedex-container mb-8">
+				<button
+					class="retro-button purple mb-6 block w-full"
+					onclick={() => (showEvolution = !showEvolution)}
+				>
+					{showEvolution ? '◄ HIDE' : '▶ SHOW'} EVOLUTION CHAIN
+				</button>
+
+				{#if showEvolution}
+					<div class="pokedex-screen">
+						<h2 class="retro-subtitle mb-6 text-center text-xl">EVOLUTION DATA</h2>
+						<div class="crt-monitor">
+							{#await fetchPokemonSpecies(pokemonId)}
+								<div class="text-center">
+									<div class="pokeball-loader mx-auto mb-4"></div>
+									<p class="pixel-text text-2xl text-green-400">LOADING EVOLUTION DATA...</p>
+								</div>
+							{:then species}
+								{#await fetchEvolutionChain(species.evolution_chain.url)}
+									<div class="text-center">
+										<p class="pixel-text text-2xl text-blue-400">FETCHING EVOLUTION CHAIN...</p>
+									</div>
+								{:then evolutionData}
+									{@const chain = parseEvolutionChain(evolutionData.chain)}
+									<div class="flex flex-wrap items-center justify-center gap-6">
+										{#each chain as pokemon, i (pokemon)}
+											<div class="text-center">
+												<div class="pokemon-card mb-4 p-4">
+													<p class="pixel-text text-xl uppercase text-gray-800">{pokemon}</p>
+												</div>
+											</div>
+											{#if i < chain.length - 1}
+												<div class="evolution-arrow">▶</div>
+											{/if}
+										{/each}
+									</div>
+									
+									{#if chain.length === 1}
+										<div class="mt-6 text-center">
+											<p class="pixel-text text-lg text-yellow-400">NO EVOLUTION DATA AVAILABLE</p>
+										</div>
+									{/if}
+								{:catch error}
+									<div class="glitch text-center">
+										<p class="pixel-text text-2xl text-red-400">EVOLUTION ERROR: {error.message}</p>
+									</div>
+								{/await}
+							{:catch error}
+								<div class="glitch text-center">
+									<p class="pixel-text text-2xl text-red-400">SPECIES ERROR: {error.message}</p>
+								</div>
+							{/await}
+						</div>
+					</div>
+				{/if}
+			</div>
+		</div>
 	</div>
 </svelte:boundary>

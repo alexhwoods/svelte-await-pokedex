@@ -1,3 +1,340 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+/* Import 90's-style retro fonts */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&family=VT323:wght@400&display=swap');
+
+/* 90's Pokémon Color Palette */
+:root {
+  /* Primary Palette (Game Boy inspired) */
+  --pokedex-red: #CC0000;
+  --pokedex-blue: #0066CC;
+  --gameboy-green: #9BBB58;
+  --gameboy-dark: #2B2B2B;
+  --screen-yellow: #FFD700;
+  --retro-orange: #FF6600;
+  
+  /* Card-inspired Palette */
+  --card-yellow: #FFF8DC;
+  --card-border: #DAA520;
+  --holographic: #4169E1;
+  --energy-lightning: #FFFF00;
+  --shadow-purple: #4B0082;
+  
+  /* UI Element Colors */
+  --button-red: #DC143C;
+  --button-blue: #1E90FF;
+  --success-green: #228B22;
+  --warning-amber: #FF8C00;
+  --text-retro: #2F4F4F;
+  --accent-pink: #FF69B4;
+}
+
+/* Global 90's styling */
+body {
+  background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460);
+  background-attachment: fixed;
+  font-family: 'VT323', 'Courier New', monospace;
+  color: var(--text-retro);
+  position: relative;
+}
+
+/* Retro scanline effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(90deg, transparent 50%, rgba(0, 255, 0, 0.02) 50%);
+  background-size: 2px 2px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Pokédex-style container */
+.pokedex-container {
+  background: linear-gradient(135deg, var(--pokedex-red), #aa0000);
+  border: 4px solid var(--gameboy-dark);
+  border-radius: 20px;
+  box-shadow: 
+    inset 0 0 20px rgba(0, 0, 0, 0.3),
+    0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  padding: 20px;
+}
+
+/* Classic Pokédex screen */
+.pokedex-screen {
+  background: linear-gradient(135deg, var(--gameboy-green), #7d9f4a);
+  border: 3px solid var(--gameboy-dark);
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 
+    inset 0 0 10px rgba(0, 0, 0, 0.4),
+    0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+/* CRT monitor effect */
+.crt-monitor {
+  background: var(--gameboy-dark);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 
+    inset 0 0 50px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(0, 255, 0, 0.3);
+  position: relative;
+}
+
+.crt-monitor::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(90deg, transparent 50%, rgba(0, 255, 0, 0.1) 50%),
+    linear-gradient(0deg, transparent 50%, rgba(0, 255, 0, 0.05) 50%);
+  background-size: 3px 3px, 100% 3px;
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+/* Retro card styling */
+.pokemon-card {
+  background: linear-gradient(135deg, var(--card-yellow), #f5f5dc);
+  border: 3px solid var(--card-border);
+  border-radius: 15px;
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.pokemon-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 49%, rgba(255, 255, 255, 0.3) 49.5%, rgba(255, 255, 255, 0.3) 50.5%, transparent 51%);
+  animation: shimmer 3s infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* Retro typography */
+.retro-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.5rem;
+  color: var(--screen-yellow);
+  text-shadow: 
+    2px 2px 0 var(--gameboy-dark),
+    0 0 10px var(--screen-yellow);
+  letter-spacing: 2px;
+  line-height: 1.4;
+}
+
+.retro-subtitle {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  color: var(--text-retro);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.pixel-text {
+  font-family: 'VT323', monospace;
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+/* 90's-style buttons */
+.retro-button {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.8rem;
+  padding: 12px 24px;
+  border: 3px solid var(--gameboy-dark);
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--button-red), #b91c1c);
+  color: white;
+  text-shadow: 1px 1px 0 var(--gameboy-dark);
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.1s;
+  cursor: pointer;
+  position: relative;
+}
+
+.retro-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.retro-button:active {
+  transform: translateY(1px);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.retro-button.blue {
+  background: linear-gradient(135deg, var(--button-blue), #1d4ed8);
+}
+
+.retro-button.purple {
+  background: linear-gradient(135deg, var(--shadow-purple), #5b21b6);
+}
+
+/* Retro input styling */
+.retro-input {
+  font-family: 'VT323', monospace;
+  font-size: 1.2rem;
+  padding: 8px 12px;
+  border: 3px solid var(--gameboy-dark);
+  border-radius: 8px;
+  background: var(--screen-yellow);
+  color: var(--gameboy-dark);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.retro-input:focus {
+  outline: none;
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.2),
+    0 0 10px var(--screen-yellow);
+}
+
+/* Stats progress bars with 90's styling */
+.retro-stat-bar {
+  background: var(--gameboy-dark);
+  border: 2px solid var(--text-retro);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  height: 24px;
+}
+
+.retro-stat-fill {
+  background: linear-gradient(90deg, var(--success-green), var(--energy-lightning));
+  height: 100%;
+  border-radius: 8px;
+  position: relative;
+  transition: width 0.5s ease;
+}
+
+.retro-stat-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+  animation: statShine 2s infinite;
+}
+
+@keyframes statShine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Type badges with enhanced 90's styling */
+.type-badge {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 6px 16px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Evolution chain styling */
+.evolution-arrow {
+  font-family: 'Press Start 2P', monospace;
+  color: var(--screen-yellow);
+  text-shadow: 2px 2px 0 var(--gameboy-dark);
+  font-size: 1.5rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+/* Loading animation - Pokéball style */
+.pokeball-loader {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, var(--pokedex-red) 0%, var(--pokedex-red) 48%, var(--gameboy-dark) 48%, var(--gameboy-dark) 52%, white 52%);
+  border: 4px solid var(--gameboy-dark);
+  animation: pokeball-spin 1s linear infinite;
+  position: relative;
+}
+
+.pokeball-loader::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border: 3px solid var(--gameboy-dark);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes pokeball-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Glitch effect for errors */
+.glitch {
+  animation: glitch 0.5s infinite;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .retro-title {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .retro-button {
+    font-size: 0.7rem;
+    padding: 10px 20px;
+  }
+}
