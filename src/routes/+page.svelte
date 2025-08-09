@@ -10,19 +10,13 @@
 	}
 
 	// Simulated API call that fetches posts
-	async function fetchPosts(userId) {
+	async function fetchPosts() {
 		await new Promise((resolve) => setTimeout(resolve, 1500));
 		return [
 			{ id: 1, title: 'First Post', content: 'This is the first post content' },
 			{ id: 2, title: 'Second Post', content: 'This is the second post content' },
 			{ id: 3, title: 'Third Post', content: 'This is the third post content' }
 		];
-	}
-
-	// Simple async calculation
-	async function add(a, b) {
-		await new Promise((resolve) => setTimeout(resolve, 500));
-		return a + b;
 	}
 
 	let userId = $state(1);
@@ -40,13 +34,7 @@
 	{/snippet}
 
 	<div class="container mx-auto p-8">
-		<h1 class="mb-6 text-3xl font-bold">Svelte Await Expressions Example</h1>
-
-		<!-- Simple example from the docs -->
-		<div class="mb-6 rounded-lg bg-white p-6 shadow-md">
-			<h2 class="mb-4 text-xl font-semibold">Simple Addition</h2>
-			<p>2 + 3 = {await add(2, 3)}</p>
-		</div>
+		<h1 class="mb-6 text-3xl font-bold">Svelte Await Expressions Examples</h1>
 
 		<!-- User data example -->
 		<div class="mb-6 rounded-lg bg-white p-6 shadow-md">
@@ -85,11 +73,11 @@
 		{#if showPosts}
 			<div class="rounded-lg bg-white p-6 shadow-md">
 				<h2 class="mb-4 text-xl font-semibold">User Posts</h2>
-				{#await fetchPosts(userId)}
+				{#await fetchPosts()}
 					<p class="text-gray-500">Loading posts...</p>
 				{:then posts}
 					<div class="space-y-4">
-						{#each posts as post}
+						{#each posts as post (post.id)}
 							<div class="border-b pb-4 last:border-b-0">
 								<h3 class="font-semibold">{post.title}</h3>
 								<p class="text-gray-600">{post.content}</p>
